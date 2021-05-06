@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import axios from "axios"
 import { environment } from "../app/environment/environment"
@@ -8,7 +9,7 @@ import { Board } from './../board/boardModel'
 import { updateSessionBoard } from "../store/boardStore"
 
 export async function newGame() : Promise<User>{
-    const user: User = getCurrentUser
+    const user = getCurrentUser as unknown as User
     const res = (await axios.get(environment.backendUrl + "/v1/user")).data
     if (res.state === "In queue") {
         user.state = res.state
@@ -19,10 +20,12 @@ export async function newGame() : Promise<User>{
         board.redPlayer = res.redPlayer
         updateSessionBoard(board)
     }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return Promise.resolve(res)
 
 }
 
-export async function newGame(id:string) {
-    
+// eslint-disable-next-line @typescript-eslint/require-await
+export async function newMovement(id:string) {
+    return
 }
