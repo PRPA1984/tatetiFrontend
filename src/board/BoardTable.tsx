@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react'
 import { useErrorHandler } from '../common/utils/ErrorHandler'
 import { useSessionBoard } from './../store/boardStore'
@@ -5,7 +7,7 @@ import { useSessionUser } from './../store/userStore'
 import { Board } from './boardModel'
 
 export function BoardTable() {
-    const board = useSessionBoard
+    const board = useSessionBoard as unknown as Board
     const user = useSessionUser
 
     return (
@@ -39,16 +41,16 @@ export function BoardTable() {
 }
 
 function BoardRow(props: {id: string, player: string}) {
-    const board  = useSessionBoard
+    const board  = useSessionBoard as unknown as Board
     const errorHandler = useErrorHandler
 
     const color = props.player ? (props.player === board.greenPlayer ? "green" : "red"): "transparent"
     function handleClick(id:string) {
-        try {
+/*         try {
             await newMovement(id)
         } catch (error) {
             errorHandler.processRestValidations(error)
-        }
+        } */
     }
     return(
         <td id={props.id}

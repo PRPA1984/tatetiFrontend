@@ -16,7 +16,7 @@ export async function login(params: {
   password: string
 }): Promise<Token> {
   const res = (
-    await axios.post(environment.backendUrl + "/v1/user/signin", params)
+    await axios.post(environment.backendUrl + "/v1/users/signin", params)
   ).data as Token
 
   setCurrentToken(res.token)
