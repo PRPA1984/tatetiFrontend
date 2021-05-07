@@ -18,6 +18,7 @@ export default function Toolbar() {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       {buttons}
     </div>
+    <h3>{user ? user.name : ""}</h3>
   </nav>
   )
 }
