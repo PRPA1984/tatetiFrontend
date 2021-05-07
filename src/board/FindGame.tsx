@@ -7,7 +7,7 @@ import { InQueue } from './InQueue'
 
 export function FindGame() {
     const user = useSessionUser()
-    const element = user?.state ? <InQueue/> : <ButtonFindGame/>
+    const element = user?.matchmaking ? <InQueue/> : <ButtonFindGame/>
     return (
     <div>
         {element}

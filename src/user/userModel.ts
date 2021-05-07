@@ -1,5 +1,5 @@
 export interface User {
-    id: string
+    id: number
     name: string
-    state?: string/*  In queue*/
+    matchmaking: boolean/*  In queue*/
 }

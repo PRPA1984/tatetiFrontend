@@ -1,5 +1,5 @@
 import React from "react"
-import logo from ".../assets/loading.gif"
+import logo from "../assets/loading.gif"
 
 
 export function InQueue(){

@@ -1,4 +1,5 @@
 import React from "react"
+import { NavLink } from "react-router-dom"
 
 
 
@@ -7,10 +8,10 @@ export function LoggedToolbarButtons() {
     return(
     <ul className="navbar-nav mr-auto">
         <li className="nav-item active">
-            <a className="nav-link" href="#">Play!<span className="sr-only">(current)</span></a>
+            <NavLink to="/game" className="nav-link">Play!</NavLink>
         </li>
         <li className="nav-item active">
-            <a className="nav-link" href="#">Match History<span className="sr-only">(current)</span></a>
+            <NavLink to="/matchHistory" className="nav-link">Match History</NavLink>
         </li>
     </ul>
 

@@ -16,7 +16,7 @@ export async function login(params: {
   password: string
 }): Promise<Token> {
   const res = (
-    await axios.post(environment.backendUrl + "/v1/users/signin", params)
+    await axios.post(environment.backendUrl + "/users/login", params)
   ).data as Token
 
   setCurrentToken(res.token)
@@ -62,7 +62,7 @@ export async function logout(): Promise<void> {
 
 export async function reloadCurrentUser(): Promise<User> {
   try {
-    const res = (await axios.get(environment.backendUrl + "/v1/users/current"))
+    const res = (await axios.get(environment.backendUrl + "/users/current"))
       .data as User
     localStorage.setItem("user", JSON.stringify(res))
     updateSessionUser(res)
@@ -111,7 +111,7 @@ if (getCurrentToken()) {
   const currentToken = getCurrentToken()
   if (currentUser !== undefined && currentToken !== undefined) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    axios.defaults.headers.common.Authorization = "bearer " + currentToken
+    axios.defaults.headers.common.Authorization = currentToken
     updateSessionToken(currentToken)
     updateSessionUser(currentUser)
     void reloadCurrentUser().then()

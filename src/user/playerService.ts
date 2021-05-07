@@ -10,14 +10,15 @@ import { updateSessionBoard } from "../store/boardStore"
 
 export async function newGame() : Promise<User>{
     const user = getCurrentUser as unknown as User
-    const res = (await axios.get(environment.backendUrl + "/v1/user")).data
+    const res = (await axios.get(environment.backendUrl + "/boards/newGame")).data
     if (res.state === "In queue") {
-        user.state = res.state
+        user.matchmaking = true
         updateSessionUser(user)
     } else {
         const board = res.board as Board
         board.greenPlayer = res.green_player
         board.redPlayer = res.redPlayer
+        debugger
         updateSessionBoard(board)
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return

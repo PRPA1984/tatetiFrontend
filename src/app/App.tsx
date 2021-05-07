@@ -10,6 +10,7 @@ import Password from "../user/Password"
 import Welcome from "../welcome/Welcome"
 import Toolbar from "./Toolbar"
 import "./App.css"
+import { Game } from "../board/Game"
 
 export default function App() {
   return (
@@ -27,7 +28,8 @@ export default function App() {
             <td id="content" className="app_content">
               <Route exact path="/" component={Welcome} />
               <Route exact path="/login" component={Login} />
-              <Route path="/register" component={Register} />
+              <Route exact path="/register" component={Register} />
+              <LoggedInRoute path="/game" component={Game}/>
               {/* <LoggedInRoute path="/info" component={Info} />
               <LoggedInRoute path="/password" component={Password} />
               <LoggedInRoute path="/profile" component={Profile} /> */} {/* Shift Alt A comment */}
