@@ -11,6 +11,7 @@ import Welcome from "../welcome/Welcome"
 import Toolbar from "./Toolbar"
 import "./App.css"
 import { Game } from "../board/Game"
+import { MatchHistory } from "../board/MatchHistory"
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <LoggedInRoute path="/game" component={Game}/>
+              <LoggedInRoute path="/matchHistory" component={MatchHistory}/>
               {/* <LoggedInRoute path="/info" component={Info} />
               <LoggedInRoute path="/password" component={Password} />
               <LoggedInRoute path="/profile" component={Profile} /> */} {/* Shift Alt A comment */}

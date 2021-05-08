@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import axios from "axios"
@@ -6,10 +7,11 @@ import { updateSessionUser, useSessionUser } from "../store/userStore"
 import { User } from "./userModel"
 import { getCurrentUser } from './userService'
 import { Board } from './../board/boardModel'
-import { updateSessionBoard } from "../store/boardStore"
+import { startBoardReload, updateSessionBoard } from "../store/boardStore"
+import { updateSessionMatch } from "../store/matchHistory"
 
 export async function newGame() : Promise<User>{
-    const user = getCurrentUser as unknown as User
+    const user = getCurrentUser() as unknown as User
     const res = (await axios.get(environment.backendUrl + "/boards/newGame")).data
     if (res.state === "In queue") {
         user.matchmaking = true
@@ -22,17 +24,17 @@ export async function newGame() : Promise<User>{
 
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         const interval = setInterval(async () => {
-            console.log("Interval")
+            console.log("In queue interval")
             const check = (await axios.get(environment.backendUrl + "/boards/userState")).data.state
-            
             if (check !== "In queue") {
-                console.log("end")
-                const new_res = (await axios.get(environment.backendUrl + "/boards/lastBoard")).data as Board
-                updateSessionBoard(new_res)
+                console.log("end queue")
+                const newRes = (await axios.get(environment.backendUrl + "/boards/lastBoard")).data as Board
+                updateSessionBoard(newRes)
                 user.matchmaking = false
                 updateSessionUser(user)
-                setCurrentBoard(new_res)
+                setCurrentBoard(newRes)
                 clearInterval(interval)
+                startBoardReload()
             }
 
         }, 1000)
@@ -41,6 +43,7 @@ export async function newGame() : Promise<User>{
         const board = res as Board
         updateSessionBoard(board)
         setCurrentBoard(board)
+        startBoardReload()
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return Promise.resolve(res)
@@ -49,19 +52,26 @@ export async function newGame() : Promise<User>{
 
 
 export async function newMovement(id:string) {
-    const board = getCurrentBoard as unknown as Board
-    const res = (await axios.get(environment.backendUrl + `/boards/${board.id.toString()}/newTurn`)).data as Board
+    const board = getCurrentBoard() as Board
+    console.log(`New Movement: /boards/${board.id.toString()}/newTurn Selected Row: ${id}`)
+    // eslint-disable-next-line camelcase
+    const res = (await axios.post(environment.backendUrl + `/boards/${board.id.toString()}/newTurn`, {selected_row : id})).data as Board
 
     updateSessionBoard(res)
-    setCurrentBoard(board)
-
+    setCurrentBoard(res)
     return Promise.resolve(res)
 }
 
+export async function matchHistory(user: User) {
+    const res = (await axios.get(environment.backendUrl + "/users/matchHistory")).data
+    updateSessionMatch(res)
+    return Promise.resolve(res)
+}
 
-function setCurrentBoard(board : Board) {
+export function setCurrentBoard(board : Board) {
     localStorage.setItem("board", JSON.stringify(board))
 }
 export function getCurrentBoard(): Board | undefined {
-    return (localStorage.getItem("board") as unknown) as Board
+    const boardStorage = localStorage.getItem("board")
+    return boardStorage ? JSON.parse(boardStorage) as Board : undefined
   }

@@ -38,7 +38,9 @@ function setCurrentToken(token: string) {
 }
 
 export function getCurrentUser(): User | undefined {
-  return (localStorage.getItem("user") as unknown) as User
+  const userStorage = localStorage.getItem("user")
+
+  return userStorage ? JSON.parse(userStorage) as User : undefined
 }
 
 export async function logout(): Promise<void> {
@@ -81,7 +83,7 @@ export async function register(params: {
   password: string
   username: string
 }): Promise<Token> {
-  const res = (await axios.post(environment.backendUrl + "/v1/user", params))
+  const res = (await axios.post(environment.backendUrl + "/users/", params))
     .data as Token
   setCurrentToken(res.token)
   updateSessionToken(res.token)

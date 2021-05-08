@@ -1,6 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 
+import axios from 'axios'
 import { useState, useLayoutEffect } from 'react'
 import { Subject } from 'rxjs'
+import { environment } from '../app/environment/environment'
+import { getCurrentBoard, setCurrentBoard } from '../user/playerService'
 import { Board } from './../board/boardModel'
 
 let currentBoard: Board | undefined
@@ -17,6 +24,23 @@ export function useSessionBoard() {
   }, [])
 
   return board
+}
+
+export function startBoardReload(){
+  const interval = setInterval(async () => {
+    console.log("realoding board")
+    const board = getCurrentBoard() as Board
+    const res = (await axios.get(`${environment.backendUrl}/boards/${board.id}`)).data
+
+    if (res !== board) {
+        updateSessionBoard(res)
+        setCurrentBoard(res)
+        if (res.winner !== null) {
+            clearInterval(interval)
+        }
+    }
+
+  }, 1000)
 }
 
 export function updateSessionBoard(board : Board) {
