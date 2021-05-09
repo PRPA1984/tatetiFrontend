@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable react/jsx-key */
 import React, { useEffect } from "react"
 import { useSessionUser } from "../store/userStore"
 import { matchHistory } from "../user/playerService"
@@ -18,7 +21,7 @@ export function MatchHistory() {
         }
     }, [])
     if(matchList === undefined) {
-        return <img src={logo} alt="loading..." />
+        return <img src={logo} alt="loading..." style = {{position: "fixed", top: "40%",left: "45%"}}/>
     }
     else {
         return (

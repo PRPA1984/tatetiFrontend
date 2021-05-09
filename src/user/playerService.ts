@@ -7,10 +7,13 @@ import { updateSessionUser, useSessionUser } from "../store/userStore"
 import { User } from "./userModel"
 import { getCurrentUser } from './userService'
 import { Board } from './../board/boardModel'
-import { startBoardReload, updateSessionBoard } from "../store/boardStore"
+import { cleanupSessionBoard, startBoardReload, updateSessionBoard } from "../store/boardStore"
 import { updateSessionMatch } from "../store/matchHistory"
+import { useErrorHandler } from "../common/utils/ErrorHandler"
 
 export async function newGame() : Promise<User>{
+    cleanupSessionBoard()
+    localStorage.removeItem("board")
     const user = getCurrentUser() as unknown as User
     const res = (await axios.get(environment.backendUrl + "/boards/newGame")).data
     if (res.state === "In queue") {

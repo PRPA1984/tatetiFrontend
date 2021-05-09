@@ -9,7 +9,7 @@ export function FindGame() {
     const user = useSessionUser()
     const element = user?.matchmaking ? <InQueue/> : <ButtonFindGame/>
     return (
-    <div>
+    <div style = {{position: "fixed", top: "40%",left: "45%"}}>
         {element}
     </div>
     )

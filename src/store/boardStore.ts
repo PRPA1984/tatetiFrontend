@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useState, useLayoutEffect } from 'react'
 import { Subject } from 'rxjs'
 import { environment } from '../app/environment/environment'
+import { ErrorHandler, useErrorHandler } from '../common/utils/ErrorHandler'
 import { getCurrentBoard, setCurrentBoard } from '../user/playerService'
 import { Board } from './../board/boardModel'
 

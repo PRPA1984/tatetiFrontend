@@ -5,7 +5,7 @@ import { ErrorHandler, useErrorHandler } from './../common/utils/ErrorHandler'
 import { useForceUpdate } from "../common/utils/Tools"
 
 
-export function ButtonFindGame(){
+export function ButtonFindGame(props: {label?:string}){
 
     const user = useSessionUser()
 
@@ -21,7 +21,7 @@ export function ButtonFindGame(){
 
     return(
     <button type="button" className="btn btn-primary btn-lg" onClick = {handleClick}>
-        Find Game
+        {props.label ? props.label : "Find Game"}
     </button>
     )
 }

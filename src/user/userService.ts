@@ -1,5 +1,7 @@
 import axios, { AxiosError } from "axios"
 import { environment } from "../app/environment/environment"
+import { cleanupSessionBoard } from "../store/boardStore"
+import { cleanupSessionMatch } from "../store/matchHistory"
 import { updateSessionToken, cleanupSessionToken } from "../store/tokenStore"
 import { cleanupSessionUser, updateSessionUser } from "../store/userStore"
 import { User } from './userModel'
@@ -46,9 +48,10 @@ export function getCurrentUser(): User | undefined {
 export async function logout(): Promise<void> {
   localStorage.removeItem("token")
   localStorage.removeItem("user")
+  localStorage.removeItem("board")
 
   try {
-    await axios.get(environment.backendUrl + "/v1/user/signout")
+    await axios.get(environment.backendUrl + "users/logout")
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     axios.defaults.headers.common.Authorization = ""
     return Promise.resolve()
@@ -57,6 +60,8 @@ export async function logout(): Promise<void> {
   } finally {
     cleanupSessionToken()
     cleanupSessionUser()
+    cleanupSessionBoard()
+    cleanupSessionMatch()
   }
 }
 

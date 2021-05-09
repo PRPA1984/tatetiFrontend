@@ -13,6 +13,9 @@ export function LoggedToolbarButtons() {
         <li className="nav-item active">
             <NavLink to="/matchHistory" className="nav-link">Match History</NavLink>
         </li>
+        <li className="nav-item active">
+            <NavLink to="/logout" className="nav-link">Logout</NavLink>
+        </li>
     </ul>
 
     )

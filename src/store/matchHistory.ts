@@ -27,7 +27,7 @@ export function updateSessionMatch(match : any) {
     currentMatch = match
     matchSubject.next(currentMatch)
   }
-export function cleanupSessionBoard() {
+export function cleanupSessionMatch() {
     currentMatch = undefined
     matchSubject.next(currentMatch)
   }
