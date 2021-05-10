@@ -9,6 +9,7 @@ import "./App.css"
 import { Game } from "../board/Game"
 import { MatchHistory } from "../board/MatchHistory"
 import { Logout } from "../user/Logout"
+import { Profile } from "../user/Profile"
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
               <LoggedInRoute path="/game" component={Game}/>
               <LoggedInRoute path="/matchHistory" component={MatchHistory}/>
               <LoggedInRoute path="/logout" component={Logout}/>
+              <LoggedInRoute path="/profile" component={Profile}/>
             </td>
           </tr>
         </tbody>
