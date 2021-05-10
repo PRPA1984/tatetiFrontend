@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useState, useLayoutEffect } from 'react'
 import { Subject } from 'rxjs'
 import { environment } from '../app/environment/environment'
-import { getCurrentBoard, setCurrentBoard } from '../user/playerService'
+import { getCurrentBoard, setCurrentBoard } from '../board/boardService'
 import { Board } from './../board/boardModel'
 
 let currentMatch: any

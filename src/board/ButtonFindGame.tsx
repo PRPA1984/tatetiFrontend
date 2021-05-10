@@ -1,5 +1,5 @@
 import React from "react"
-import { newGame } from "../user/playerService"
+import { newGame } from "./boardService"
 import { useSessionUser } from './../store/userStore'
 import { ErrorHandler, useErrorHandler } from './../common/utils/ErrorHandler'
 import { useForceUpdate } from "../common/utils/Tools"

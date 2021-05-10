@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react'
 import DangerLabel from '../common/components/DangerLabel'
 import { ErrorHandler, useErrorHandler } from '../common/utils/ErrorHandler'
-import { newMovement } from '../user/playerService'
+import { newMovement } from './boardService'
 import { User } from '../user/userModel'
 import { useSessionBoard } from './../store/boardStore'
 import { useSessionUser } from './../store/userStore'
@@ -18,7 +18,8 @@ export function BoardTable() {
     const team:string = board.greenPlayer === user.name ? "green" : "red"
     const enemyTeam:string = board.greenPlayer === user.name ? "red" : "green"
     const enemyPlayer:string = team === "green" ? board.redPlayer : board.greenPlayer
-    const alliedPlayer:string = team === "green" ? board.greenPlayer : board.redPlayer
+    const alliedPlayer:string = user.name
+
     return (
         <div style = {{position: "fixed", top: "20%",left: "20%"}}>
             <div>
@@ -59,7 +60,6 @@ export function BoardTable() {
 }
 
 function BoardRow(props: {id: string, player: string | undefined, alliedPlayer:string, team:string, enemyTeam:string, errorHandler:ErrorHandler}) {
-    const errorHandler = useErrorHandler
     const color = props.player !== undefined ?  (props.player === props.alliedPlayer ?  props.team : props.enemyTeam) : "transparent"
     const handleClick = async (id:string) => {
          try {

@@ -3,13 +3,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import axios from "axios"
 import { environment } from "../app/environment/environment"
-import { updateSessionUser, useSessionUser } from "../store/userStore"
-import { User } from "./userModel"
-import { getCurrentUser } from './userService'
-import { Board } from './../board/boardModel'
+import { updateSessionUser} from "../store/userStore"
+import { User } from "../user/userModel"
+import { getCurrentUser } from '../user/userService'
+import { Board } from './boardModel'
 import { cleanupSessionBoard, startBoardReload, updateSessionBoard } from "../store/boardStore"
 import { updateSessionMatch } from "../store/matchHistory"
-import { useErrorHandler } from "../common/utils/ErrorHandler"
 
 export async function newGame() : Promise<User>{
     cleanupSessionBoard()
