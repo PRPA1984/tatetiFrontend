@@ -46,28 +46,24 @@ export function getCurrentUser(): User | undefined {
 }
 
 export async function logout(): Promise<void> {
+  await axios.get(environment.backendUrl + "/users/logout")
+
   localStorage.removeItem("token")
   localStorage.removeItem("user")
   localStorage.removeItem("board")
 
-  try {
-    await axios.get(environment.backendUrl + "users/logout")
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    axios.defaults.headers.common.Authorization = ""
-    return Promise.resolve()
-  } catch (err) {
-    return Promise.resolve()
-  } finally {
-    cleanupSessionToken()
-    cleanupSessionUser()
-    cleanupSessionBoard()
-    cleanupSessionMatch()
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  axios.defaults.headers.common.Authorization = ""
+
+  cleanupSessionToken()
+  cleanupSessionUser()
+  cleanupSessionBoard()
+  return Promise.resolve()
 }
 
 
 
-export async function reloadCurrentUser(): Promise<User> {
+export async function reloadCurrentUser() {
   try {
     const res = (await axios.get(environment.backendUrl + "/users/current"))
       .data as User
@@ -75,11 +71,7 @@ export async function reloadCurrentUser(): Promise<User> {
     updateSessionUser(res)
     return res
   } catch (err) {
-    const axiosError = err as AxiosError
-    if (axiosError.response && axiosError.response.status === 401) {
       void logout()
-    }
-    throw err
   }
 }
 
@@ -92,35 +84,6 @@ export async function register(params: {
     .data as Token
   setCurrentToken(res.token)
   updateSessionToken(res.token)
-  void reloadCurrentUser().then()
+  void reloadCurrentUser()
   return Promise.resolve(res)
-}
-
-export async function changePassword(params: {
-  currentPassword: string
-  newPassword: string
-}): Promise<void> {
-  try {
-    await axios.post(environment.backendUrl + "/v1/user/password", params)
-    return
-  } catch (err) {
-    const axiosError = err as AxiosError
-
-    if (axiosError.response && axiosError.response.status === 401) {
-      void logout()
-    }
-    throw err
-  }
-}
-
-if (getCurrentToken()) {
-  const currentUser = getCurrentUser()
-  const currentToken = getCurrentToken()
-  if (currentUser !== undefined && currentToken !== undefined) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    axios.defaults.headers.common.Authorization = currentToken
-    updateSessionToken(currentToken)
-    updateSessionUser(currentUser)
-    void reloadCurrentUser().then()
-  }
 }

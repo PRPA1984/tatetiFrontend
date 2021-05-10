@@ -9,6 +9,7 @@ import { useSessionBoard } from './../store/boardStore'
 import { useSessionUser } from './../store/userStore'
 import { Board } from './boardModel'
 import { ButtonFindGame } from './ButtonFindGame'
+import "./Board.css"
 
 export function BoardTable() {
     const board = useSessionBoard() as Board
@@ -21,7 +22,7 @@ export function BoardTable() {
     const alliedPlayer:string = user.name
 
     return (
-        <div style = {{position: "fixed", top: "20%",left: "20%"}}>
+        <div className = "board">
             <div>
                 <table>
                     <thead>
@@ -50,7 +51,7 @@ export function BoardTable() {
                     </tbody>
                 </table>
             </div>
-            <div style = {{position: "fixed", left:"60%", bottom:"60%"}}>
+            <div className = "board-labels">
                 <h1 color = {team === board.turn ? team : enemyTeam}>{board.winner ? "The winner is: " + board.winner: (team === board.turn ? "Your Turn" : enemyPlayer + "'s Turn")}</h1>
                 <DangerLabel message={errorHandler.errorMessage}/>
                 {board.winner ? <ButtonFindGame label="New Game"/> : null}

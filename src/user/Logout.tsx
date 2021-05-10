@@ -8,5 +8,7 @@ export function Logout(props : RouteComponentProps) {
 
     void logout()
 
-    return <h1>Logged out succesfully</h1>
+    goHome(props)
+
+    return null
 }

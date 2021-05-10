@@ -23,7 +23,7 @@ export default function Login(props: RouteComponentProps) {
     const loginClick = async () => {
         errorHandler.cleanRestValidations()
         if (!username) {
-            errorHandler.addError("login", "No puede estar vacío")
+            errorHandler.addError("username", "No puede estar vacío")
         }
         if (!password) {
             errorHandler.addError("password", "No puede estar vacío")
@@ -63,7 +63,7 @@ export default function Login(props: RouteComponentProps) {
 
                 <FormButtonBar>
                     <FormAcceptButton label="Login" onClick={loginClick} />
-                    <FormButton label="Cancelar" onClick={() => goHome(props)} />
+                    <FormButton label="Cancel" onClick={() => goHome(props)} />
                 </FormButtonBar>
             </Form >
         </GlobalContent >

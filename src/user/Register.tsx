@@ -96,8 +96,8 @@ export default function Register(props: RouteComponentProps) {
         <DangerLabel message={errorHandler.errorMessage} />
 
         <FormButtonBar>
-          <FormAcceptButton label="Registrarse" onClick={registerClick} />
-          <FormButton label="Cancelar" onClick={() => goHome(props)} />
+          <FormAcceptButton label="Register" onClick={registerClick} />
+          <FormButton label="Cancel" onClick={() => goHome(props)} />
         </FormButtonBar>
       </Form>
     </GlobalContent>
