@@ -8,7 +8,6 @@ import { User } from "../user/userModel"
 import { getCurrentUser } from '../user/userService'
 import { Board } from './boardModel'
 import { cleanupSessionBoard, startBoardReload, updateSessionBoard } from "../store/boardStore"
-import { updateSessionMatch } from "../store/matchHistory"
 
 export async function newGame() : Promise<User>{
     cleanupSessionBoard()
@@ -64,9 +63,8 @@ export async function newMovement(id:string) {
     return Promise.resolve(res)
 }
 
-export async function matchHistory(user: User) {
+export async function matchHistory() {
     const res = (await axios.get(environment.backendUrl + "/users/matchHistory")).data
-    updateSessionMatch(res)
     return Promise.resolve(res)
 }
 

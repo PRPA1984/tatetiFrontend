@@ -1,7 +1,6 @@
 import axios, { AxiosError } from "axios"
 import { environment } from "../app/environment/environment"
 import { cleanupSessionBoard } from "../store/boardStore"
-import { cleanupSessionMatch } from "../store/matchHistory"
 import { updateSessionToken, cleanupSessionToken } from "../store/tokenStore"
 import { cleanupSessionUser, updateSessionUser } from "../store/userStore"
 import { User } from './userModel'
