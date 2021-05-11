@@ -1,6 +1,6 @@
-import React from "react";
-import GlobalContent from "../common/components/GlobalContent";
-import { useSessionUser } from "../store/userStore";
+import React from "react"
+import GlobalContent from "../common/components/GlobalContent"
+import { useSessionUser } from "../store/userStore"
 
 
 export function Profile() {

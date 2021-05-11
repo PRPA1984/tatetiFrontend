@@ -20,7 +20,12 @@ export function BoardTable() {
     const enemyTeam:string = board.greenPlayer === user.name ? "red" : "green"
     const enemyPlayer:string = team === "green" ? board.redPlayer : board.greenPlayer
     const alliedPlayer:string = user.name
+    let boardIsFull = false
 
+    if (board.board["1"] && board.board["2"] && board.board["3"] && board.board["4"] && board.board["5"]
+        && board.board["6"] && board.board["7"] && board.board["8"] && board.board["9"]) {
+        boardIsFull = true
+    }
     return (
         <div className = "board">
             <div>
@@ -52,7 +57,7 @@ export function BoardTable() {
                 </table>
             </div>
             <div className = "board-labels">
-                <h1 color = {team === board.turn ? team : enemyTeam}>{board.winner ? "The winner is: " + board.winner: (team === board.turn ? "Your Turn" : enemyPlayer + "'s Turn")}</h1>
+                <h1>{board.winner ? "The winner is: " + board.winner: boardIsFull ? "Draw":(team === board.turn ? "Your Turn" : enemyPlayer + "'s Turn")}</h1>
                 <DangerLabel message={errorHandler.errorMessage}/>
                 {board.winner ? <ButtonFindGame label="New Game"/> : null}
             </div>

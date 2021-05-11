@@ -24,7 +24,7 @@ export default function App() {
         </thead>
         <tbody>
           <tr>
-            <td id="content" className="app_content">
+            <td className="app_content">
               <Route exact path="/" component={Welcome} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
