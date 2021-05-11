@@ -19,16 +19,10 @@ export async function newGame() : Promise<User>{
         updateSessionUser(user)
         localStorage.setItem("user", JSON.stringify(user))
 
-
-        let flag : boolean
-
-
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         const interval = setInterval(async () => {
-            console.log("In queue interval")
             const check = (await axios.get(environment.backendUrl + "/boards/userState")).data.state
             if (check !== "In queue") {
-                console.log("end queue")
                 const newRes = (await axios.get(environment.backendUrl + "/boards/lastBoard")).data as Board
                 updateSessionBoard(newRes)
                 user.matchmaking = false
@@ -54,7 +48,6 @@ export async function newGame() : Promise<User>{
 
 export async function newMovement(id:string) {
     const board = getCurrentBoard() as Board
-    console.log(`New Movement: /boards/${board.id.toString()}/newTurn Selected Row: ${id}`)
     // eslint-disable-next-line camelcase
     const res = (await axios.post(environment.backendUrl + `/boards/${board.id.toString()}/newTurn`, {selected_row : id})).data as Board
 

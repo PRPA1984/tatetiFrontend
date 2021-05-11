@@ -33,7 +33,7 @@ export function MatchHistory() {
     if (errorHandler.errorMessage) {
         return <DangerLabel message = {errorHandler.errorMessage}/>
     }
-    else if(matchList === undefined) {
+    else if(matchList === []) {
         return <img src={logo} alt="loading..." style = {{position: "fixed", top: "40%",left: "45%"}}/>
     }
     else {

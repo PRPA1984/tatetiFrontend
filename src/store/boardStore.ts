@@ -29,7 +29,6 @@ export function useSessionBoard() {
 
 export function startBoardReload(){
   const interval = setInterval(async () => {
-    console.log("realoding board")
     const board = getCurrentBoard() as Board
     const res = (await axios.get(`${environment.backendUrl}/boards/${board.id}`)).data
 
