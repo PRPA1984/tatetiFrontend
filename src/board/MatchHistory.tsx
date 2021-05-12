@@ -1,16 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react"
-import { useSessionUser } from "../store/userStore"
 import { matchHistory } from "./boardService"
-import { User } from "../user/userModel"
 import logo from "../assets/loading.gif"
 import { ErrorHandler, useErrorHandler } from "../common/utils/ErrorHandler"
 import DangerLabel from "../common/components/DangerLabel"
 
 
 export function MatchHistory() {
-    const user = useSessionUser() as User
     const errorHandler : ErrorHandler = useErrorHandler()
     const [matchList,setMatchList] = useState([])
 
