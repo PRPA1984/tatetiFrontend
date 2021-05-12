@@ -56,7 +56,7 @@ export async function newMovement(id:string) {
 }
 
 export async function matchHistory() {
-    const res = (await axios.get(environment.backendUrl + "/users/matchHistory")).data
+    const res = (await axios.get(environment.backendUrl + "/boards/matchHistory")).data
     return Promise.resolve(res)
 }
 
