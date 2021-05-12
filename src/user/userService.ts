@@ -26,7 +26,6 @@ export async function login(params: {
   return res
 }
 
-// Valores almacenados en LOCAL STORE
 function getCurrentToken(): string | undefined {
   const result = localStorage.getItem("token")
   return result ? result : undefined
